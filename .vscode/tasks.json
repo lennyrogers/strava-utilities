@@ -1,0 +1,25 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Run Activity Summary",
+			"type": "shell",
+			"command": ".venv/bin/python",
+			"args": [
+				"scripts/activity_summary.py"
+			],
+			"isBackground": false,
+			"group": "build"
+		},
+		{
+			"label": "Test Strava Auth",
+			"type": "shell",
+			"command": ".venv/bin/python",
+			"args": [
+				"scripts/auth_test.py"
+			],
+			"isBackground": false,
+			"group": "test"
+		}
+	]
+}
