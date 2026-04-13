@@ -203,6 +203,37 @@ class StravaClient:
         """
         return self._make_request(f'/segments/{segment_id}')
     
+    def get_segment_leaderboard(self, segment_id: int, per_page: int = 10, 
+                              page: int = 1, date_range: str = None,
+                              club_id: int = None, following: bool = None) -> Dict[str, Any]:
+        """
+        Get the leaderboard for a specific segment.
+        
+        Args:
+            segment_id: The segment ID
+            per_page: Number of entries to return (max 200)
+            page: Page number for pagination
+            date_range: Date range for entries (this_year, this_month, this_week, today)
+            club_id: Filter by club ID
+            following: Filter to only athletes the authenticated user follows
+            
+        Returns:
+            dict: Leaderboard data with entries
+        """
+        params = {
+            'per_page': min(per_page, 200),
+            'page': page
+        }
+        
+        if date_range:
+            params['date_range'] = date_range
+        if club_id:
+            params['club_id'] = club_id
+        if following is not None:
+            params['following'] = following
+            
+        return self._make_request(f'/segments/{segment_id}/leaderboard', params=params)
+    
     def get_gear(self, gear_id: str) -> Dict[str, Any]:
         """
         Get information about a piece of gear.
